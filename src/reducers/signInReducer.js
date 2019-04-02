@@ -6,7 +6,7 @@ export default (state = null, action) => {
   switch (action.type) {
     case SIGN_IN:
       // Sets the authentication token for future communication to the backend
-      setAuthToken(action.token);
+      setAuthToken(action.payload);
       return true;
     case SIGN_OUT:
       setAuthToken(null);

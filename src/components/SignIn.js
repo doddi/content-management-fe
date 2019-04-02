@@ -27,7 +27,6 @@ class SignIn extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     signedIn: state.loggedStatus
   };

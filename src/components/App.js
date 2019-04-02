@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import PrivateRoute from './PrivateRoute';
 import SignIn from './SignIn';
 import CustomerList from './CustomerList';
 import Header from './Header';
@@ -11,9 +12,8 @@ const App = () => {
       <BrowserRouter>
         <div>
           <Header />
-          <Route path="/" exact component={null} />
           <Route path="/signIn" component={SignIn} />
-          <Route path="/customers" component={CustomerList} />
+          <PrivateRoute path="/customers" component={CustomerList} />
         </div>
       </BrowserRouter>
     </div>

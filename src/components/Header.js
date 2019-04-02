@@ -8,11 +8,11 @@ const Header = props => {
         ContentManagement
       </Link>
       <div className="right menu">
-        <Link to="/signIn" className="item">
-          Home
-        </Link>
         <Link to="/customers" className="item">
           Customers
+        </Link>
+        <Link to="/signIn" className="item">
+          Sign In
         </Link>
       </div>
     </div>
