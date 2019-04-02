@@ -10,33 +10,44 @@ class SignIn extends React.Component {
     this.props.trySignIn(username, password);
   };
 
-  renderUsername(formProps) {
+  renderError({ touched, error }) {
+    if (touched && error) {
+      return <div className="ui error message">{error}</div>;
+    }
+  }
+
+  renderUsername = ({ input, meta }) => {
+    const clazz = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
-      <div className="field">
+      <div className={clazz}>
         <label>Username:</label>
         <input
-          {...formProps.input}
+          {...input}
           type="text"
           name="username"
           placeholder="Username"
+          autoComplete="off"
         />
+        {this.renderError(meta)}
       </div>
     );
-  }
+  };
 
-  renderPassword(formProps) {
+  renderPassword = ({ input, meta }) => {
+    const clazz = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
-      <div className="field">
+      <div className={clazz}>
         <label>Password:</label>
         <input
-          {...formProps.input}
+          {...input}
           type="password"
           name="password"
           placeholder="password"
         />
+        {this.renderError(meta)}
       </div>
     );
-  }
+  };
 
   render() {
     // Once logged in a re-render will initiate this redirect
@@ -47,7 +58,7 @@ class SignIn extends React.Component {
     return (
       <form
         onSubmit={this.props.handleSubmit(this.doSignIn)}
-        className="ui form"
+        className="ui form error"
       >
         <div>
           <Field name="username" component={this.renderUsername} />
@@ -68,11 +79,24 @@ const mapStateToProps = state => {
   };
 };
 
-export default reduxForm({
-  form: 'loginForm'
-})(
-  connect(
-    mapStateToProps,
-    { trySignIn }
-  )(SignIn)
-);
+const validate = formValues => {
+  let errors = {};
+
+  if (!formValues.username) {
+    errors.username = 'You must enter a username';
+  }
+  if (!formValues.password || formValues.password.length < 4) {
+    errors.password = 'You must enter a valid password minimum length 4';
+  }
+  return errors;
+};
+
+const formWrapped = reduxForm({
+  form: 'loginForm',
+  validate
+})(SignIn);
+
+export default connect(
+  mapStateToProps,
+  { trySignIn }
+)(formWrapped);
