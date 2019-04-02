@@ -29,10 +29,8 @@ export const trySignIn = (username, password) => async dispatch => {
   });
 };
 
-export const trySignOut = () => async dispatch => {
-  const response = await getApi().post('/user/signout');
-
-  dispatch({
+export const trySignOut = () => {
+  return {
     type: SIGN_OUT
-  });
+  };
 };

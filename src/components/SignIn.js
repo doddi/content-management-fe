@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { trySignIn } from '../actions';
 
@@ -8,19 +9,17 @@ class SignIn extends React.Component {
     this.props.trySignIn('admin', 'password');
   };
 
-  renderSignInButton() {
-    if (this.props.signedIn) {
-      return <button onClick={this.doSignOut}>Sign Out</button>;
-    }
-    return <button onClick={this.doSignIn}>Sign In</button>;
-  }
-
   render() {
+    // Once logged in a re-render to redirect
+    if (this.props.signedIn) {
+      return <Redirect push to="/" />;
+    }
+
     return (
       <div>
         <input onChange={this.onEmailChange} />
         <input onChange={this.onPasswordChange} />
-        <div>{this.renderSignInButton()}</div>
+        <button onClick={this.doSignIn}>Sign In</button>
       </div>
     );
   }
@@ -28,7 +27,7 @@ class SignIn extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    signedIn: state.loggedStatus
+    signedIn: state.authenticationStatus.isAuthenticated
   };
 };
 
