@@ -12,7 +12,7 @@ class PrivateRoute extends React.Component {
       }
 
       const to = {
-        pathname: 'signIn',
+        pathname: '/',
         state: { from: props.location }
       };
 
@@ -25,7 +25,7 @@ class PrivateRoute extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.loggedStatus
+    isAuthenticated: state.authenticationStatus.isAuthenticated
   };
 };
 

@@ -4,5 +4,5 @@ import signInReducer from './signInReducer';
 
 export default combineReducers({
   customers: customersReducer,
-  loggedStatus: signInReducer
+  authenticationStatus: signInReducer
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AuthenticationButton from './AuthenticationButton';
 
 const Header = props => {
   return (
@@ -11,9 +12,7 @@ const Header = props => {
         <Link to="/customers" className="item">
           Customers
         </Link>
-        <Link to="/signIn" className="item">
-          Sign In
-        </Link>
+        <AuthenticationButton />
       </div>
     </div>
   );
