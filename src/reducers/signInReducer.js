@@ -1,17 +1,16 @@
 import { SIGN_IN, SIGN_OUT } from '../actions';
+import { setAuthToken } from '../apis/backend';
 
 // Updates the state determining if a user is currently logged in our out
-export default (state = {}, action) => {
+export default (state = null, action) => {
   switch (action.type) {
     case SIGN_IN:
-      return {
-        signedIn: true,
-        token: action.payload
-      };
+      // Sets the authentication token for future communication to the backend
+      setAuthToken(action.token);
+      return true;
     case SIGN_OUT:
-      return {
-        signedIn: false
-      };
+      setAuthToken(null);
+      return false;
     default:
       return state;
   }

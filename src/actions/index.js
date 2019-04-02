@@ -1,4 +1,4 @@
-import { getApi, setToken } from '../apis/backend';
+import { getApi } from '../apis/backend';
 
 export const FETCH_CUSTOMERS = 'FETCH_CUSTOMERS';
 export const SIGN_IN = 'SIGN_IN';
@@ -23,10 +23,9 @@ export const trySignIn = (username, password) => async dispatch => {
     password: password
   });
 
-  setToken(response.data.token);
-
   dispatch({
-    type: SIGN_IN
+    type: SIGN_IN,
+    payload: response.data.token
   });
 };
 

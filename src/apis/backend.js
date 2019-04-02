@@ -4,7 +4,7 @@ const URL = 'http://localhost:8080/api/';
 
 let currentAuthToken = null;
 
-export function setToken(token) {
+export function setAuthToken(token) {
   currentAuthToken = token;
 }
 
