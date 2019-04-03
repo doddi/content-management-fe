@@ -29,12 +29,19 @@ class AuthenticationButton extends React.Component {
   }
 }
 
+const getUserInformation = state => {
+  return state.authenticationStatus.user !== undefined
+    ? state.authenticationStatus.user.username
+    : null;
+};
+
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.authenticationStatus.isAuthenticated,
-    authenticatedUser: state.authenticationStatus.user
+    authenticatedUser: getUserInformation(state)
   };
 };
+
 export default connect(
   mapStateToProps,
   { trySignOut }

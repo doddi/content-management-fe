@@ -10,6 +10,12 @@ export function setAuthToken(token) {
 
 export function getApi() {
   return axios.create({
+    baseURL: `${URL}`
+  });
+}
+
+export function getApiWithToken() {
+  return axios.create({
     baseURL: `${URL}`,
     headers: {
       Authorization: `Bearer ${currentAuthToken}`

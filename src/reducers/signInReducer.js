@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT } from '../actions';
+import { SIGN_IN, SIGN_OUT, AUTH_USER } from '../actions';
 import { setAuthToken } from '../apis/backend';
 
 function decodeToken(token) {
@@ -14,13 +14,20 @@ export default (state = {}, action) => {
       setAuthToken(action.payload);
 
       return {
+        ...state,
         isAuthenticated: true,
-        user: decodeToken(action.payload)
+        userId: decodeToken(action.payload)
       };
     case SIGN_OUT:
       setAuthToken(null);
       return {
+        ...state,
         isAuthenticated: false
+      };
+    case AUTH_USER:
+      return {
+        ...state,
+        user: action.payload
       };
     default:
       return state;

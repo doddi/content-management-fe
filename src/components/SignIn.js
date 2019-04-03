@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
-import { trySignIn } from '../actions';
+import { fetchAuthenticatedUserDetailsOnSign } from '../actions';
 
 class SignIn extends React.Component {
   doSignIn = ({ username, password }) => {
-    this.props.trySignIn(username, password);
+    this.props.fetchAuthenticatedUserDetailsOnSign(username, password);
   };
 
   renderError({ touched, error }) {
@@ -98,5 +98,5 @@ const formWrapped = reduxForm({
 
 export default connect(
   mapStateToProps,
-  { trySignIn }
+  { fetchAuthenticatedUserDetailsOnSign }
 )(formWrapped);
