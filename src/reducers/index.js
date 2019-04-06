@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import customersReducer from './customersReducer';
-import signInReducer from './signInReducer';
+import authenticationReducer from './authenticationReducer';
 
 export default combineReducers({
   customers: customersReducer,
-  authenticationStatus: signInReducer,
+  authenticationStatus: authenticationReducer,
   form: formReducer
 });

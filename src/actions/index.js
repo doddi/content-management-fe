@@ -2,13 +2,14 @@ import { getApi, getApiWithToken } from '../apis/backend';
 
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
-export const AUTH_USER = 'AUTH_USER';
+export const AUTH_USER = 'FETCH_USERS;';
 
 export const FETCH_USERS = 'FETCH_USERS';
 export const FETCH_USER = 'FETCH_USER';
 
 export const FETCH_CUSTOMERS = 'FETCH_CUSTOMERS';
 
+//                AUTHENTICATION
 export const fetchAuthenticatedUserDetailsOnSign = (
   username,
   password
@@ -17,11 +18,11 @@ export const fetchAuthenticatedUserDetailsOnSign = (
 
   let userId = getState().authenticationStatus.userId;
 
-  dispatch(fetchAuthenticatedUser(userId));
+  dispatch(authUser(userId));
 };
 
 export const trySignIn = (username, password) => async dispatch => {
-  const response = await getApi().post('/user/signin', {
+  const response = await getApi().post('/users/signin', {
     username: username,
     password: password
   });
@@ -38,8 +39,8 @@ export const trySignOut = () => {
   };
 };
 
-export const fetchAuthenticatedUser = id => async dispatch => {
-  const response = await getApiWithToken().get(`/user/${id}`);
+export const authUser = id => async dispatch => {
+  const response = await getApiWithToken().get(`/users/${id}`);
 
   dispatch({
     type: AUTH_USER,
@@ -47,8 +48,9 @@ export const fetchAuthenticatedUser = id => async dispatch => {
   });
 };
 
+//                USERS
 export const fetchUsers = () => async dispatch => {
-  const response = await getApiWithToken().get('/user');
+  const response = await getApiWithToken().get('/users');
 
   dispatch({
     type: FETCH_USERS,
@@ -57,7 +59,7 @@ export const fetchUsers = () => async dispatch => {
 };
 
 export const fetchUser = id => async dispatch => {
-  const response = await getApiWithToken().get(`/user/${id}`);
+  const response = await getApiWithToken().get(`/users/${id}`);
 
   dispatch({
     type: FETCH_USER,
@@ -65,6 +67,7 @@ export const fetchUser = id => async dispatch => {
   });
 };
 
+//                CUSTOMERS
 export const fetchCustomers = page => async (dispatch, getState) => {
   const response = await getApiWithToken().get('/customer/', {
     params: {

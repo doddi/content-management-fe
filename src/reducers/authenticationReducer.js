@@ -1,6 +1,18 @@
 import { SIGN_IN, SIGN_OUT, AUTH_USER } from '../actions';
 import { setAuthToken } from '../apis/backend';
 
+/*
+User information available in the store:
+  isAuthenticated
+  userId
+  userXO
+    name
+    username
+    email
+    password
+    roles[]
+*/
+
 function decodeToken(token) {
   let body = JSON.parse(window.atob(token.split('.')[1]));
   return body.sub;
@@ -12,23 +24,24 @@ export default (state = {}, action) => {
     case SIGN_IN:
       // Sets the authentication token for future communication to the backend
       setAuthToken(action.payload);
-
       return {
         ...state,
         isAuthenticated: true,
         userId: decodeToken(action.payload)
       };
+
     case SIGN_OUT:
       setAuthToken(null);
       return {
-        ...state,
         isAuthenticated: false
       };
+
     case AUTH_USER:
       return {
         ...state,
         user: action.payload
       };
+
     default:
       return state;
   }
